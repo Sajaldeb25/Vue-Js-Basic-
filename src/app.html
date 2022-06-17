@@ -75,7 +75,7 @@
               </form>
             </div>
             <div class="card-footer">
-              <button @click="addToCart('carrots')" class="btn btn-light">
+              <button v-on:click="addTocart('carrot')" class="btn btn-light">
                 Add to cart
               </button>
             </div>
@@ -169,18 +169,30 @@
     <script src="https://unpkg.com/vue@next"></script>
     <script>
       let app = Vue.createApp({
-        data(){            // Functions
+        data(){            // Default Functions to access any data
           return {
             inventory: {   //dictionary for products
                 carrot: 2,
                 pineapple: 3,
                 cherry: 4
+            },
+            cart: {
+              carrot: 2,
+              pineapple: 3,
+              cherry: 4
             }
           }
+        },
+        methods: {
+          addTocart(type){
+            this.cart[type] += this.inventory[type]
+            console.log(this.cart)
+          }
         }
-
       })
+
       app.mount('#app')
+    
     </script>
   
   </body>
