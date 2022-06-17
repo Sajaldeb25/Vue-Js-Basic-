@@ -69,7 +69,7 @@
                     <label>Quantity:</label>
                   </div>
                   <div class="cell">
-                    <input type="number" v-model.number="inventory.carrots">
+                    <input type="number" v-model="inventory.carrot">
                   </div>
                 </div>
               </form>
@@ -109,7 +109,7 @@
                     <label>Quantity:</label>
                   </div>
                   <div class="cell">
-                    <input type="number" v-model="inventory.pineapples">
+                    <input type="number" v-model="inventory.pineapple">
                   </div>
                 </div>
               </form>
@@ -147,7 +147,7 @@
                     <label>Quantity:</label>
                   </div>
                   <div class="cell">
-                    <input type="number" v-model="inventory.cherries">
+                    <input type="number" v-model="inventory.cherry">
                   </div>
                 </div>
               </form>
@@ -167,7 +167,21 @@
     </div>
       
     <script src="https://unpkg.com/vue@next"></script>
-    
+    <script>
+      let app = Vue.createApp({
+        data(){            // Functions
+          return {
+            inventory: {   //dictionary for products
+                carrot: 2,
+                pineapple: 3,
+                cherry: 4
+            }
+          }
+        }
+
+      })
+      app.mount('#app')
     </script>
+  
   </body>
 </html>
