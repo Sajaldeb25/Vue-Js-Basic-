@@ -25,7 +25,7 @@
         </nav>
         <a href="#" class="top-bar-cart-link">
           <i class="icofont-cart-alt icofont-1x"></i>
-          <span>Cart (0)</span>
+          <span v-on:click="toggleSidebar">Cart (0)</span>
         </a>
       </header>
 
@@ -162,7 +162,7 @@
       </main>
 
       <!-- Here custome component sidebar  -->
-      <sidebar/>
+      <sidebar v-if="showsidebar" v-bind:toggle ="toggleSidebar"/>
 
       <footer>
       </footer>
@@ -174,6 +174,7 @@
       let app = Vue.createApp({
         data(){            // Default Functions to access any data
           return {
+            showsidebar: false,
             inventory: {   //dictionary for products
                 carrot: 2,
                 pineapple: 3,
@@ -190,6 +191,9 @@
           addTocart(type){
             this.cart[type] += this.inventory[type]
             console.log(this.cart)
+          }, 
+          toggleSidebar(){
+            this.showsidebar = !this.showsidebar
           }
         }
       })
@@ -197,6 +201,7 @@
 
       // use as a component 
       app.component('sidebar', {
+        props: ['toggle'],
         template: `
           <aside class="cart-container">
           <div class="cart">
@@ -205,7 +210,7 @@
                 Cart
                 <i class="icofont-cart-alt icofont-1x"></i>
               </span>
-              <button class="cart-close">&times;</button>
+              <button  v-on:click="toggle" class="cart-close">&times;</button>
             </h1>
 
             <div class="cart-body">
