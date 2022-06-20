@@ -92,6 +92,7 @@
         v-bind:toggle ="toggleSidebar"
         v-bind:cart="cart"
         :inventory="inventory"
+        :remove="removeitem"
       />
 
       <footer>
@@ -119,6 +120,9 @@
           }, 
           toggleSidebar(){
             this.showsidebar = !this.showsidebar
+          },
+          removeitem(name){
+            delete this.cart[name]
           }
         },
         async mounted(){
@@ -131,7 +135,7 @@
 
       // use as a component 
       app.component('sidebar', {
-        props: ['toggle', 'cart', 'inventory'],
+        props: ['toggle', 'cart', 'inventory', 'remove'],
         computed: {
 
         },
@@ -180,7 +184,7 @@
                     <td class="center">{{quantity}}</td>
                     <td> $ {{ getprice(key)*quantity }}</td>
                     <td class="center">
-                      <button class="btn btn-light cart-remove">
+                      <button v-on:click="remove(key)" class="btn btn-light cart-remove">
                         &times;
                       </button>
                     </td>
