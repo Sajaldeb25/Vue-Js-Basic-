@@ -133,9 +133,7 @@
       app.component('sidebar', {
         props: ['toggle', 'cart', 'inventory'],
         computed: {
-          cartTotal(){
-            return (this.cart.carrot * 4.82).toFixed(2)
-          }
+
         },
         methods:{
           getprice(name){
@@ -143,6 +141,12 @@
               return product.name === name
             })
             return expected_product.price.USD
+          },
+          calculateTotal(){
+            const total = Object.entries(this.cart).reduce((accu, curr, index) => {
+              return accu+ (curr[1] * this.getprice(curr[0]))
+            }, 0)
+            return total.toFixed(2)
           }
         },
         template: `
@@ -174,7 +178,7 @@
                     <td>{{key}}</td>
                     <td>$ {{getprice(key)}}</td> 
                     <td class="center">{{quantity}}</td>
-                    <td> $ {{ (cart.carrot * 4.82).toFixed(2) }}</td>
+                    <td> $ {{ getprice(key)*quantity }}</td>
                     <td class="center">
                       <button class="btn btn-light cart-remove">
                         &times;
@@ -186,7 +190,7 @@
 
               <p class="center"><em>No items in cart</em></p>
               <div class="spread">
-                <span><strong>Total:</strong> {{ cartTotal }}</span>
+                <span><strong>Total:</strong> {{ calculateTotal() }}</span>
                 <button class="btn btn-light">Checkout</button>
               </div>
             </div>
