@@ -25,7 +25,7 @@
         </nav>
         <a href="#" class="top-bar-cart-link">
           <i class="icofont-cart-alt icofont-1x"></i>
-          <span v-on:click="toggleSidebar">Cart (0)</span>
+          <span v-on:click="toggleSidebar">Cart ({{totalQuantity}})</span>
         </a>
       </header>
 
@@ -110,6 +110,13 @@
             cart: {}
           }
         },
+        computed: {
+          totalQuantity(){
+            return Object.values(this.cart).reduce((accu, curr) => {
+              return accu+ curr
+            }, 0)
+          }
+        },
         methods: {
           addTocart(name, index){
             console.log(name, index)
@@ -139,7 +146,11 @@
       app.component('sidebar', {
         props: ['toggle', 'cart', 'inventory', 'remove'],
         computed: {
-
+          // totalQuantity(){
+          //   return Object.values(this.cart).reduce((accu, curr) => {
+          //     return accu+ curr
+          //   }, 0)
+          // }
         },
         methods:{
           getprice(name){
