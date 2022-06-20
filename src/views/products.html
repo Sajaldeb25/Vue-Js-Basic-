@@ -23,7 +23,7 @@
         </nav>
         <a href="#" class="top-bar-cart-link">
           <i class="icofont-cart-alt icofont-1x"></i>
-          <span>Cart (0)</span>
+          <span v-on:click="toggleSidebar">Cart ({{totalQuantity}})</span>
         </a>
       </header>
 
@@ -261,8 +261,18 @@
         </div>
       </main>
 
+      <sidebar 
+        v-if="showsidebar" 
+        v-bind:toggle ="toggleSidebar"
+        v-bind:cart="cart"
+        :inventory="inventory"
+        :remove="removeitem"
+      />
 
     </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="../app.js"></script>
 
   </body>
 </html>
