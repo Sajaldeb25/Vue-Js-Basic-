@@ -117,6 +117,8 @@
               this.cart[name] = 0
             this.cart[name] = this.inventory[index].quantity
             console.log(this.cart)
+            this.inventory[index].quantity = 0
+
           }, 
           toggleSidebar(){
             this.showsidebar = !this.showsidebar
