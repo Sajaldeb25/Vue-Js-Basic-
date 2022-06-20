@@ -115,7 +115,7 @@
             // return [1,2,3,4,5].reduce((accu, curr) => {
             //   return accu+curr
             // }, 0)
-
+            console.log(Object.values(this.cart))
             return Object.values(this.cart).reduce((accu, curr) => {
               return accu+ curr
             }, 0)
@@ -130,6 +130,7 @@
             console.log(this.cart)
             this.inventory[index].quantity = 0
 
+            // console.log(Object.keys(this.cart)) // checking Object.keys/entries/values
           }, 
           toggleSidebar(){
             this.showsidebar = !this.showsidebar
