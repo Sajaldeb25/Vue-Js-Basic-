@@ -112,6 +112,10 @@
         },
         computed: {
           totalQuantity(){
+            // return [1,2,3,4,5].reduce((accu, curr) => {
+            //   return accu+curr
+            // }, 0)
+
             return Object.values(this.cart).reduce((accu, curr) => {
               return accu+ curr
             }, 0)
