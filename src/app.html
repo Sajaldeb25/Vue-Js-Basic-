@@ -91,6 +91,7 @@
         v-if="showsidebar" 
         v-bind:toggle ="toggleSidebar"
         v-bind:cart="cart"
+        :inventory="inventory"
       />
 
       <footer>
@@ -105,16 +106,14 @@
           return {
             showsidebar: false,
             inventory: [],   //dictionary for all products   
-            cart: {
-              carrot: 2,
-              pineapple: 3,
-              cherry: 4
-            }
+            cart: {}
           }
         },
         methods: {
           addTocart(name, index){
             console.log(name, index)
+            if (!this.cart[name]) 
+              this.cart[name] = 0
             this.cart[name] = this.inventory[index].quantity
             console.log(this.cart)
           }, 
@@ -132,10 +131,18 @@
 
       // use as a component 
       app.component('sidebar', {
-        props: ['toggle', 'cart'],
+        props: ['toggle', 'cart', 'inventory'],
         computed: {
           cartTotal(){
             return (this.cart.carrot * 4.82).toFixed(2)
+          }
+        },
+        methods:{
+          getprice(name){
+            const expected_product = this.inventory.find((product)=>{
+              return product.name === name
+            })
+            return expected_product.price.USD
           }
         },
         template: `
@@ -162,11 +169,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr v-for="(quantity,key, i) in cart" :key="i">  <!-- key is "name" -->
                     <td><i class="icofont-carrot icofont-3x"></i></td>
-                    <td>Carrot</td>
-                    <td>$4.82</td>
-                    <td class="center">{{ cart.carrot }}</td>
+                    <td>{{key}}</td>
+                    <td>$ {{getprice(key)}}</td> 
+                    <td class="center">{{quantity}}</td>
                     <td> $ {{ (cart.carrot * 4.82).toFixed(2) }}</td>
                     <td class="center">
                       <button class="btn btn-light cart-remove">
